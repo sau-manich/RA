@@ -1,0 +1,50 @@
+
+
+<!doctype HTML>
+<html>
+<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/aframe-ar.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+
+<style>
+  .button {
+    background-color: #f2a838;
+    border: none;
+    color: white;
+    padding: 7px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 50px;
+  }
+  #output {
+    display: inline-block;
+    top: 4px;
+    position: relative;
+    padding: 2px;
+  }
+  .button {
+    border: solid 2px #ccc;
+  }
+</style>
+
+<div style="position: fixed; top: 10px; width: 100%; text-align: center; z-index: 1;">
+  <div class="button" id="btn1">1</div>
+  <div class="button" id="btn2">2</div>
+  <div class="button" id="btn3">3</div>
+</div>
+
+<body style='margin : 0px; overflow: hidden;'></body>
+    <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">  
+     
+      <a-marker preset="kanji">
+        <a-entity id="entityID1" gltf-model=”url(scene.gltf)” scale=".05 .05 .05" position="0 0 -1" rotation="0 18  0 0"></a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
