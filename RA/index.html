@@ -1,83 +1,667 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Realidad Aumentada Empezando desde cero</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <style>
-body{
-  text-align: center;
-  background-color: #ba0001;
-}
-.img{
-  margin-left: auto;
-  margin-right: auto;
-}
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 12px;
-}
-.button:hover {
 
-box-shadow: 0 15px 16px 0 rgba(0, 0, 0, 0.24),0 17px 50px 0 rgba(0, 0, 0, 0.16);
-
-}
-.primero{
-  background-color: #f0f0f0;
- text-align: center;
- padding: 20px;
-border: 10px solid #ababab;
+<!doctype HTML>
+<html>
+<script src="https://aframe.io/releases/1.0.0/aframe.min.js"></script>
+<script src="https://raw.githack.com/jeromeetienne/AR.js/2.1.4/aframe/build/aframe-ar.js"></script>
+<script src="https://rawgit.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+<link rel="stylesheet" href="https://code.ionicframework.com/nightly/css/ionic.css">
+<script src="https://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+<style>
+  
+#floating-button {
+    bottom: 20px;
+    position: fixed;
+    right: 20px;
+    z-index : 9999;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
 }
 
-.segundo{
- text-align: center;
+#floating-button.center{
+    margin-left: auto !important; 
+    margin-right: auto !important;
+    left: 0 !important;
+    right: 0 !important;
 }
+
+#floating-button>li {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+#floating-button a {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8em;
+}
+
+#floating-button .icon.menu-icon{
+    font-size: 20px;
+}
+
+#floating-button li span.label{
+    margin-right: 2px;
+    color: gray;
+    background-color: white;
+    padding: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 0.5px 2px 2px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+
+#floating-button li span.label-container{
+    margin-right: 2px;
+    position: absolute;
+    display: inline-block;
+    top: 0px;
+    overflow: hidden;
+    right: 75px;
+    width: 400px;
+    text-align: right;
+    font-size: 15px;
+}
+
+/*floating-menu*/
+
+#floating-menu {
+    position: fixed;
+    right: 20px;
+    z-index: 9999;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+}
+
+#floating-menu .center{
+    margin-left: auto; 
+    margin-right: auto; 
+    left: 0; 
+    right: 0; 
+}
+
+#floating-menu .icon.menu-icon{
+    font-size: 20px;
+}
+
+#floating-menu img.menu-icon{
+    font-size: 20px;
+}
+
+#floating-menu li i{
+    font-size: 20px;
+    left: 0;
+    top: 0;
+}
+
+#floating-menu li.menu-button {
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#floating-menu li{
+    position: absolute;
+    left: 0.5px;
+    top: 0.5px;
+    width: 98%;
+    height: 98%;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+#floating-menu li span.label{
+    margin-right: 2px;
+    color: gray;
+    background-color: white;
+    padding: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    box-shadow: 0.5px 2px 2px 0.5px rgba(0, 0, 0, 0.2);
+}
+
+
+#floating-menu li span.label-container{
+    margin-right: 2px;
+    position: absolute;
+    display: inline-block;
+    visibility: hidden;
+    top: 0px;
+    overflow: hidden;
+    right: 75px;
+    width: 400px;
+    text-align: right;
+    font-size: 18px;
+}
+
+#floating-menu.active span.label-container{
+    visibility: visible;
+}
+
+
+#floating-menu.active li{
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    top: 0;
+}
+
+/*#floating-menu li {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    text-decoration: none;
+    font-size: 0.8em;
+}*/
+
+#floating-menu ion-floating-item > li  {
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: .3s;
+}
+
+#floating-menu.active ion-floating-item:nth-child(1) > li {
+    transform: translateY(-70px);
+    -webkit-transform:translateY(-70px);
+    transition-delay: 0ms; -webkit-transition-delay: 0ms;
+}
+#floating-menu.active ion-floating-item:nth-child(2) > li {
+    transform: translateY(-140px);
+     -webkit-transform:translateY(-140px);
+    transition-delay: 50ms; -webkit-transition-delay: 50ms;
+}
+#floating-menu.active ion-floating-item:nth-child(3) > li {
+    transform: translateY(-210px);
+     -webkit-transform:translateY(-210px);
+    transition-delay: 100ms; -webkit-transition-delay: 100ms;
+}
+#floating-menu.active ion-floating-item:nth-child(4) > li {
+    transform: translateY(-280px);
+     -webkit-transform:translateY(-280px);
+    transition-delay: 150ms; -webkit-transition-delay: 150ms;
+}
+#floating-menu.active ion-floating-item:nth-child(5) > li {
+    transform: translateY(-350px);
+     -webkit-transform:translateY(-350px);
+    transition-delay: 160ms; -webkit-transition-delay: 160ms;
+}
+#floating-menu.active ion-floating-item:nth-child(6) > li {
+    transform: translateY(-420px);
+     -webkit-transform:translateY(-420px);
+    transition-delay: 170ms; -webkit-transition-delay: 170ms;
+}
+#floating-menu.active ion-floating-item:nth-child(7) > li {
+    transform: translateY(-490px);
+     -webkit-transform:translateY(-490px);
+    transition-delay: 180ms; -webkit-transition-delay: 180ms;
+}
+
+
+body {
+    text-align: center;
+    }
+
+
+input[type=text], input[type=password], input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    border-radius: 30px;
+}
+
+
+button {
+    background-color: #e98d15 ;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 30px
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+
+
+
+
+.close-button {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+.container {
+    padding: 30px;
+}
+
+span.password {
+    float: right;
+    padding-top: 16px;
+}
+
+.background-modal {
+    display: none; 
+    position: fixed;
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    color: #313131;
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 5% auto 15% auto; 
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 400px;
+    text-align: left;
+    border-radius: 12px;
+}
+
+.close {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #e98d15;
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+}
+    
+@keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+}
+
+
+@media screen and (max-width: 300px) {
+    span.password {
+       display: block;
+       float: none;
+    }
+    
+}
+
 
 </style>
 
-    <script>
-      function addScene() {
-        var scene = document.createElement("iframe")
-        scene.setAttribute("src", "/AR.html")
-        scene.setAttribute("width", "640")
-        scene.setAttribute("height", "480")
-        scene.setAttribute("align", "center")
-        scene.setAttribute("style", "")
-        document.querySelector("body").appendChild(scene)
-       
-        var contador = 1;
-        document.getElementById('button').onclick = function() {
-        alert("No es necesario presionar mas de una vez el boton");
-        };
-      }
-      </script>
-
-  <body>
-    <div class="img">
-  <img src="banner.jpg">
+<div style="position: fixed; top: 10px; width: 100%; text-align: center; z-index: 1;">
+    <div ng-app="ionicApp">
+        <div ng-controller="MainCtrl"> 
+      <!--     <button type="button" value="Click me" ></button>  -->
+            </ion-content>  
+            <ion-floating-menu>
+            <ion-floating-item icon="ion-clipboard" ng-click="first()" text="Detalle"></ion-floating-item>
+            <ion-floating-item icon="ion-cash" onclick="document.getElementById('modform').style.display='block'" style="width:auto;" text="Comprar"></ion-floating-item>
+            </ion-floating-menu>
+        </div>
     </div>
+</div>
+<div id="modform" class="background-modal">
 
-    <div class="primero">
-    <iframe src="/AR.html" width="640px" height="480px" align="center"></iframe>
-    </div>
+    <form class="modal-content animate" action="your-page.php">
 
-    <div class="segundo">
-      <button class="button" id="button" onclick="addScene()">
-      <p>Agregar AR a la escena</p>
-      </button>
-      </div>
+        <div class="close-button">
+            <span onclick="document.getElementById('modform').style.display='none'" class="close" title="Close Modal">&times;</span>
 
+        </div>
+
+        <div class="container">
+            <label for="username"><b>Nombre</b></label>
+            <input type="text" placeholder="Nombre del cliente" name="username" required>
+
+            <label for="username"><b>NIT</b></label>
+            <input type="text" placeholder="NIT para la factura" name="username" required>
+
+            <label for="username"><b>Cantidad</b></label>
+            <input type="text" placeholder="Cantidad" name="username" required>
+
+            <label for="username"><b>Mesa</b></label>
+            <input type="text" placeholder="Numero de mesa" name="password" required>
+
+            <label for="username"><b>Detalle</b></label>
+            <input type="text" placeholder="Detalle del pedido" name="password" required>
+
+            <button type="submit">Enviar</button>
+            <label>
+                <input type="checkbox" name="remember"> Requiere factura?
+            </label>
+        </div>
+
+        
+    </form>
+</div>
+
+
+<body style='margin : 0px; overflow: hidden;'></body>
+    <a-scene embedded arjs="debugUIEnabled: false;" vr-mode-ui="enabled: false">  
+     
+      <a-marker preset="kanji">
+        <a-entity id="entityID1" gltf-model=”url(scene.gltf)” scale=".05 .05 .05" position="0 0 -1" rotation="0 180 0"></a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
   </body>
-</html>
+  <script>
+      (function () {
+    'use strict';
 
+    angular.module('ion-floating-menu', [])
+
+            .directive('ionFloatingButton', ionFloatingButton)
+            .directive('ionFloatingMenu', ionFloatingMenu)
+            .directive('ionFloatingItem', ionFloatingItem)
+            .factory('$ionicBackdropIon', $ionicBackdropIon);
+
+
+    function ionFloatingButton() {
+        return {
+            restrict: 'E',
+            scope: {
+                click: '&?',
+                buttonColor: '@?',
+                buttonClass: '@?',
+                icon: '@?',
+                iconColor: '@?',
+                hasFooter: '=?',
+                isCentered: '=?',
+                text: '@?',
+                textClass: '@?',
+                bottom: '@?'},
+            template: '<ul ng-click="click()" id="floating-button" ng-class="{\'center\': isCentered}" ng-style="{\'bottom\' : \'{{bottom}}\' }">' +
+                    '<li ng-class="buttonClass" ng-style="{\'background-color\': buttonColor }">' +
+                    '<a><span ng-if="text" class="label-container"><span class="label" ng-class="textClass" ng-bind="text"></span></span><i class="icon menu-icon" ng-class="{ \'{{icon}}\' : true}" ng-style="{\'color\': iconColor }"></i></a>' +
+                    '</li>' +
+                    '</ul>',
+            replace: false,
+            transclude: true,
+            controller: ionFloatingButtonCtrl
+        };
+    }
+
+    ionFloatingButtonCtrl.$inject = ['$scope'];
+    function ionFloatingButtonCtrl($scope) {
+        $scope.buttonColor = $scope.buttonColor || '#2AC9AA';
+        $scope.icon = $scope.icon || 'ion-plus';
+        $scope.iconColor = $scope.iconColor || '#fff';
+        $scope.hasFooter = $scope.hasFooter || false;
+        $scope.isCentered = $scope.isCentered || false;
+
+        if ($scope.hasFooter) {
+            $scope.bottom = '60px';
+        } else {
+            $scope.bottom = $scope.bottom || '20px';
+        }
+    }
+
+    function ionFloatingMenu() {
+        return {
+            restrict: 'E',
+            scope: {
+                menuOpenColor: '@?',
+                menuOpenIcon: '@?',
+                menuOpenIconColor: '@?',
+                menuColor: '@?',
+                menuIcon: '@?',
+                menuIconColor: '@?',
+                hasFooter: '=?',
+                backdrop: '=?',
+                bottom: '@?'
+            },
+            template: '<ul id="floating-menu"  \n\
+                            ng-style="{\'bottom\' : \'{{bottom}}\'}" \n\
+                            ng-class="{\'active\' : isOpen}" \n\
+                            ng-click="open()">' +
+                    '<div ng-transclude></div>' +
+                    '<span><li class="menu-button icon menu-icon" ng-class="icon" ng-style="{\'background-color\' : buttonColor, \'color\': iconColor}"></li></span>' +
+                    '</ul>',
+            replace: false,
+            transclude: true,
+            link: function (scope, element, attrs, ctrl, transclude)
+            {
+                element.find('div').replaceWith(transclude());
+            },
+            controller: ionFloatingMenuCtrl
+        };
+    }
+
+    function ionFloatingItem() {
+        return {
+            restrict: 'E',
+            require: ['^ionFloatingMenu'],
+            scope: {
+                click: '&?',
+                icon: '@',
+                iconColor: '@?',
+                buttonColor: '@?',
+                buttonClass: '@?',
+                iconImagePath: '@?',
+                iconImageClass: '@?',
+                text: '@?',
+                textClass: '@?'},
+            template:
+                    '<li ng-click="click()" ng-class="buttonClass" ng-style="{\'background-color\': buttonColor }">' +
+                    '<span ng-if="text" class="label-container"><span class="label" ng-class="textClass" ng-bind="text"></span></span>' +
+                    '<img ng-if="iconImagePath" class="menu-icon" ng-class="iconImageClass" src="{{iconImagePath}}"/>' +
+                    '<i ng-if="!iconImagePath" class="icon menu-icon" ng-class="{ \'{{icon}}\' : true}" ng-style="{\'color\': iconColor }"></i>' +
+                    '</li>',
+            replace: false,
+            controller: ionFloatingItemCtrl
+        };
+    }
+
+    ionFloatingMenuCtrl.$inject = ['$scope', '$rootScope', '$ionicBackdropIon'];
+    function ionFloatingMenuCtrl($scope, $rootScope, $ionicBackdropIon) {
+        $scope.isOpen = false;
+        $scope.open = function () {
+            $scope.isOpen = !$scope.isOpen;
+            if ($scope.isOpen) {
+                $scope.setOpen();
+            } else {
+                $scope.setClose();
+            }
+        };
+        $scope.setOpen = function () {
+            $scope.buttonColor = menuOpenColor;
+            $scope.icon = menuOpenIcon;
+            $scope.iconColor = menuOpenIconColor;
+
+            if (backdrop) {
+                $ionicBackdropIon.retain();
+            }
+            $rootScope.$broadcast('floating-menu:open');
+        };
+        $scope.setClose = function () {
+            $scope.buttonColor = menuColor;
+            $scope.icon = menuIcon;
+            $scope.iconColor = menuIconColor;
+            if (backdrop) {
+                $ionicBackdropIon.release();
+            }
+            $rootScope.$broadcast('floating-menu:close');
+        };
+        var menuColor = $scope.menuColor || 'rgb(247, 132, 14)';
+        var menuIcon = $scope.menuIcon || 'ion-plus';
+        var menuIconColor = $scope.menuIconColor || '#fff';
+        var menuOpenColor = $scope.menuOpenColor || 'rgb(247, 132, 14)';
+        var menuOpenIcon = $scope.menuOpenIcon || 'ion-minus';
+        var menuOpenIconColor = $scope.menuOpenIconColor || '#fff';
+        var backdrop = $scope.backdrop || false;
+        $scope.setClose();
+        $scope.hasFooter = $scope.hasFooter || false;
+        if ($scope.hasFooter) {
+            $scope.bottom = '60px';
+        } else {
+            $scope.bottom = $scope.bottom || '20px';
+        }
+
+    }
+
+    ionFloatingItemCtrl.$inject = ['$scope'];
+    function ionFloatingItemCtrl($scope) {
+        $scope.buttonColor = $scope.buttonColor || 'rgb(247, 132, 14)';
+        $scope.iconColor = $scope.iconColor || '#fff';
+    }
+
+
+    $ionicBackdropIon.$inject = ['$document', '$timeout', '$$rAF', '$rootScope'];
+    function $ionicBackdropIon($document, $timeout, $$rAF, $rootScope) {
+        var el = angular.element('<div class="backdrop">');
+        var backdropHolds = 0;
+
+
+        var a = angular.element(document.querySelector('ion-content')).append(el[0]);
+
+        return {
+            /**
+             * @ngdoc method
+             * @name $ionicBackdrop#retain
+             * @description Retains the backdrop.
+             */
+            retain: retain,
+            /**
+             * @ngdoc method
+             * @name $ionicBackdrop#release
+             * @description
+             * Releases the backdrop.
+             */
+            release: release,
+            getElement: getElement,
+            // exposed for testing
+            _element: el
+        };
+
+        function retain() {
+            backdropHolds++;
+            if (backdropHolds === 1) {
+                el.addClass('visible');
+                $rootScope.$broadcast('backdrop.shown');
+                $$rAF(function () {
+                    // If we're still at >0 backdropHolds after async...
+                    if (backdropHolds >= 1)
+                        el.addClass('active');
+                });
+            }
+        }
+        function release() {
+            if (backdropHolds === 1) {
+                el.removeClass('active');
+                $rootScope.$broadcast('backdrop.hidden');
+                $timeout(function () {
+                    // If we're still at 0 backdropHolds after async...
+                    if (backdropHolds === 0)
+                        el.removeClass('visible');
+                }, 400, false);
+            }
+            backdropHolds = Math.max(0, backdropHolds - 1);
+        }
+
+        function getElement() {
+            return el;
+        }
+
+    }
+})();
+
+
+angular.module('ionicApp', ['ionic','ion-floating-menu'])
+.controller('MainCtrl', function($scope) {
+
+  $scope.test=function(){
+    alert("clicked me");
+  };
+  $scope.myEvent=function(){
+    alert("second clicked");
+  };
+   $scope.first=function(){
+    alert("first clicked");
+  };
+});
+  </script>
+
+
+<script>
+    var modal = document.getElementById('modform');
+
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+  
+</html>
