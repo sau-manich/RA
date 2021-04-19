@@ -1,0 +1,11 @@
+Model Information:
+* title:	Orange Juice
+* source:	https://sketchfab.com/3d-models/orange-juice-7955c65e40b345b782d6a833f0c41acb
+* author:	tvdn164 (https://sketchfab.com/tvdn164)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Orange Juice" (https://sketchfab.com/3d-models/orange-juice-7955c65e40b345b782d6a833f0c41acb) by tvdn164 (https://sketchfab.com/tvdn164) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
