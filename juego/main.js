@@ -67,17 +67,17 @@ const canvas = createElementStyle("canvas");
 const introductionElement = createElementStyle(
   "div",
   `font-size:1.2em;position:absolute;text-align:center;transition:opacity 2s;width:250px`,
-  "Press and hold anywhere to stretch out a sugar cane, it has to be the exact length or Santa will fall down"
+  "Mantenga presionado en cualquier lugar para estirar una caña de azúcar, tiene que tener la longitud exacta o Santa se caerá"
 );
 const perfectElement = createElementStyle(
   "div",
   "position:absolute;opacity:0;transition:opacity 2s",
-  "Double Score"
+  "Puntaje doble"
 );
 const restartButton = createElementStyle(
   "button",
   `width:120px;height:120px;position:absolute;border-radius:50%;color:white;background-color:${colours.em};border:none;font-weight:700;font-size:1.2em;display:none;cursor:pointer`,
-  "RESTART"
+  "JUGAR"
 );
 
 // Adding snow
